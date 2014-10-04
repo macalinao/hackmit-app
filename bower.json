@@ -3,6 +3,7 @@
   "description": "Something with Three and holograms",
   "version": "0.1.0",
   "dependencies": {
-    "threejs": "*"
+    "threejs": "*",
+    "jquery": "~2.1.1"
   }
 }
