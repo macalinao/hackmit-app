@@ -1,0 +1,8 @@
+{
+  "name": "threething",
+  "description": "Something with Three and holograms",
+  "version": "0.1.0",
+  "dependencies": {
+    "threejs": "*"
+  }
+}
