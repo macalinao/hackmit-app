@@ -7,6 +7,7 @@ body {
   font-size: 0.9em;
   background-color: #000000;
   color: white;
+  overflow: hidden;
 }
 h1 {
   font-family: Arial;

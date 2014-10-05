@@ -219,6 +219,15 @@ function loadData() {
   }).send();
 }
 
+jQuery(function() {
+  jQuery(document).keydown(function(event) {
+  if(event.keyCode==39){
+    jQuery("#checkbox-conflict").click();
+    console.log('foo');
+  }
+  });
+})
+
 //center the airline
 function centerAirline(airlineId) {
   var pos = data.airlinePos[airlineId],
