@@ -192,7 +192,9 @@ function loadData() {
           new IO.XHR({
             url: 'data/airlines/' + airlineId.replace(' ', '_') + '.json',
             onSuccess: function(json) {
-              data.airlinesRoutes[airlineId] = JSON.parse(json);
+              var process = JSON.parse(json);
+              
+              data.airlinesRoutes[airlineId] = process;
               callback();
               Log.write('Done.', true);
             },
