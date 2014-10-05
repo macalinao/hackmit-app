@@ -220,6 +220,10 @@ function loadData() {
 }
 upKeyCount=1;
 rightKeyCount=0;
+var con1 = new Image();
+con1.src("img/ConflictImage1.jpg");
+var conflict=[con1, con2, con3];
+var cooperation=[coo1, coo2, coo3];
 jQuery(function() {
   jQuery(document).keydown(function(event) {
     if(event.keyCode==39 && rightKeyCount<=2){
