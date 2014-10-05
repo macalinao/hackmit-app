@@ -67,9 +67,9 @@ function processCityFile(city, file, cb) {
     });
     console.log('== Third degree: ' + degree3.length + ' connections');
 
-    fs.writeFile(city + '-' + file + '-1.json', JSON.stringify(degree1), function() {
-      fs.writeFile(city + '-' + file + '-2.json', JSON.stringify(degree2), function() {
-        fs.writeFile(city + '-' + file + '-3.json', JSON.stringify(degree3), cb);
+    fs.writeFile(city + '_' + file + '_1.json', JSON.stringify(degree1), function() {
+      fs.writeFile(city + '_' + file + '_2.json', JSON.stringify(degree2), function() {
+        fs.writeFile(city + '_' + file + '_3.json', JSON.stringify(degree3), cb);
       });
     });
   });

@@ -1,4 +1,8 @@
 [
-  ["cooperation", "Cooperation", "2126", "38.0000", "-97.0000"],
-  ["conflict", "Conflict", "2125", "38.0000", "-97.0000"]
+  ["sanfrancisco_cooperation_1", "SF Cooperation 1", "2126", "38.0000", "97.0000"],
+  ["sanfrancisco_cooperation_2", "SF Cooperation 2", "2126", "38.0000", "97.0000"],
+  ["sanfrancisco_cooperation_3", "SF Cooperation 3", "2126", "38.0000", "97.0000"],
+  ["sanfrancisco_conflict_1", "SF Conflict 1", "2126", "38.0000", "97.0000"],
+  ["sanfrancisco_conflict_2", "SF Conflict 2", "2126", "38.0000", "97.0000"],
+  ["sanfrancisco_conflict_3", "SF Conflict 3", "2126", "38.0000", "97.0000"]
 ]
