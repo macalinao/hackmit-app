@@ -213,7 +213,6 @@ canvas {
   height: 100%;
 }
 #map-canvas {
-  margin-top: -200px;
 }
 .flip {
   display: inline-block;
