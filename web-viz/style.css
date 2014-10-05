@@ -216,7 +216,13 @@ canvas {
 #map-canvas {
 }
 .flip {
-  display: inline-block;
+  display: block;
   transform: scaleX(-1);
   filter: FlipH;
+}
+#infoText {
+  position: relative;
+  font-size: 30px;
+  text-align: center;
+  margin-top: -200px;
 }
