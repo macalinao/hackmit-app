@@ -218,26 +218,34 @@ function loadData() {
     }
   }).send();
 }
-upKeyCount=0;
+upKeyCount=1;
 rightKeyCount=0;
 jQuery(function() {
   jQuery(document).keydown(function(event) {
-  if(event.keyCode==39 && rightKeyCount==0){
-    jQuery("#checkbox-conflict").click();
-    rightKeyCount++;
-  }
-  else if(event.keyCode==37 && rightKeyCount==1){
-    jQuery("#checkbox-conflict").click();
-    rightKeyCount--;
-  }
-  else if(event.keyCode==38 && upKeyCount==0){
-    jQuery("#checkbox-cooperation").click();
-    upKeyCount++;
-  }
-  else if(event.keyCode==40 && upKeyCount==1){
-    jQuery("#checkbox-cooperation").click();
-    upKeyCount--;
-  }
+    if(event.keyCode==39 && rightKeyCount<=2){
+      rightKeyCount++;
+      jQuery("#checkbox-sanfrancisco_conflict_"+(rightKeyCount)).click();
+      console.log(rightKeyCount); 
+    }
+    else if(event.keyCode==37 && rightKeyCount>=1){
+      jQuery("#checkbox-sanfrancisco_conflict_"+(rightKeyCount)).click();
+      rightKeyCount--;
+      console.log(rightKeyCount);
+    }
+    else if(event.keyCode==38 && upKeyCount<=2){
+      upKeyCount++;
+      jQuery("#checkbox-sanfrancisco_cooperation_"+(upKeyCount)).click();
+      console.log(upKeyCount);
+      
+      
+    }
+    else if(event.keyCode==40 && upKeyCount>=1){
+      jQuery("#checkbox-sanfrancisco_cooperation_"+(upKeyCount)).click();
+      upKeyCount--;
+      console.log(upKeyCount);
+      
+      
+    }
 
   });
 })
