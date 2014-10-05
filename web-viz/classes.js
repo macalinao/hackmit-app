@@ -283,8 +283,8 @@ var AirlineManager = function(data, models) {
       this.hide(model);
 
       //unset color for airline Id.
-      availableColors[color]--;
-      delete airlineIdColor[airline];
+      //availableColors[color]--;
+      //delete airlineIdColor[airline];
     },
 
     show: function(model) {

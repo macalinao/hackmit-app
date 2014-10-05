@@ -131,7 +131,7 @@ function loadData() {
       Log.write('Building models...');
     },
     onProgress: function(e) {
-      Log.write('Loading airports data, please wait...' +
+      Log.write('Loading data, please wait...' +
         (e.total ? Math.round(e.loaded / e.total * 1000) / 10 : ''));
     },
     onError: function() {
@@ -172,6 +172,7 @@ function loadData() {
       }
 
       //when an airline is selected show all paths for that airline
+      var numEdges = 0; // save number of edges in closure
       airlineList.addEventListener('change', function(e) {
         var target = e.target,
           airlineId = target.id.split('-')[1];
@@ -180,9 +181,12 @@ function loadData() {
           if (target.checked) {
             airlineMgr.add(airlineId);
             centerAirline(airlineId);
+            numEdges += data.airlinesRoutes[airlineId].length
           } else {
             airlineMgr.remove(airlineId);
+            numEdges -= data.airlinesRoutes[airlineId].length
           }
+            $('infoText').textContent = 'Number of events: ' + numEdges;
         }
 
         if (data.airlinesRoutes[airlineId]) {
@@ -220,10 +224,10 @@ function loadData() {
 }
 upKeyCount=1;
 rightKeyCount=0;
-var con1 = new Image();
-con1.src("img/ConflictImage1.jpg");
-var conflict=[con1, con2, con3];
-var cooperation=[coo1, coo2, coo3];
+//var con1 = new Image();
+//con1.src("img/ConflictImage1.jpg");
+//var conflict=[con1, con2, con3];
+//var cooperation=[coo1, coo2, coo3];
 jQuery(function() {
   jQuery(document).keydown(function(event) {
     if(event.keyCode==39 && rightKeyCount<=2){
