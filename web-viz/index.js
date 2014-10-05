@@ -218,13 +218,27 @@ function loadData() {
     }
   }).send();
 }
-
+upKeyCount=0;
+rightKeyCount=0;
 jQuery(function() {
   jQuery(document).keydown(function(event) {
-  if(event.keyCode==39){
+  if(event.keyCode==39 && rightKeyCount==0){
     jQuery("#checkbox-conflict").click();
-    console.log('foo');
+    rightKeyCount++;
   }
+  else if(event.keyCode==37 && rightKeyCount==1){
+    jQuery("#checkbox-conflict").click();
+    rightKeyCount--;
+  }
+  else if(event.keyCode==38 && upKeyCount==0){
+    jQuery("#checkbox-cooperation").click();
+    upKeyCount++;
+  }
+  else if(event.keyCode==40 && upKeyCount==1){
+    jQuery("#checkbox-cooperation").click();
+    upKeyCount--;
+  }
+
   });
 })
 
