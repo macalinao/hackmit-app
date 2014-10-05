@@ -215,3 +215,8 @@ canvas {
 #map-canvas {
   margin-top: -200px;
 }
+.flip {
+  display: inline-block;
+  transform: scaleX(-1);
+  filter: FlipH;
+}
