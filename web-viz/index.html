@@ -7,13 +7,14 @@
 </head>
 
 <body>
+  <canvas id="map-canvas" width="1024" height="1024"></canvas>
   <div id="log-panel" style="display:none;">
     <span id="log-message"></span>
   </div>
 
   <div id="fallback" class="fallback"></div>
 
-  <div id="container">
+  <!--
     <div id="title">
       <h1>Cooperation Between Cities</h1>
       <div class="description">
@@ -22,21 +23,20 @@
         <a href="https://github.com/senchalabs/philogl">PhiloGL</a>.
       </div>
     </div>
+    -->
 
-    <div class="canvas-container">
-      <div id="canvas-wrapper">
-        <canvas id="map-canvas" width="1024" height="1024"></canvas>
-      </div>
-      <div id="list-wrapper" class="list-wrapper" style="display:none;">
-        <input type="text" id="search" placeholder="Search for an Airline" style="display:none" />
-        <ul id="selected-airlines">
-        </ul>
-        <div class="list-container">
-          <ul id="airline-list"></ul>
-        </div>
-      </div>
-      <div style="clear:both;"></div>
+  <div class="canvas-container">
+    <div id="canvas-wrapper">
     </div>
+    <div id="list-wrapper" class="list-wrapper" style="display:none;">
+      <input type="text" id="search" placeholder="Search for an Airline" style="display:none" />
+      <ul id="selected-airlines">
+      </ul>
+      <div class="list-container">
+        <ul id="airline-list"></ul>
+      </div>
+    </div>
+    <div style="clear:both;"></div>
   </div>
   </div>
 
