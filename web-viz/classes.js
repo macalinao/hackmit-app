@@ -344,9 +344,9 @@ var AirlineManager = function(data, models) {
 
     //creates a quadratic bezier curve as a route
     createRoute: function(route, offset) {
-      var key1 = route[2] + '^' + route[1],
+      var key1 = route[0]
           city1 = data.cities[key1],
-          key2 = route[4] + '^' + route[3],
+          key2 = route[1]
           city2 = data.cities[key2];
 
       if (!city1 || !city2) {
@@ -358,8 +358,8 @@ var AirlineManager = function(data, models) {
         };
       }
 
-      var c1 = this.getCoordinates(city1[2], city1[3]),
-          c2 = this.getCoordinates(city2[2], city2[3]),
+      var c1 = this.getCoordinates(city1[1], city1[2]),
+          c2 = this.getCoordinates(city2[1], city2[2]),
           p1 = c1.p,
           p2 = c2.p,
           p3 = p2.add(p1).$scale(0.5).$unit().$scale(p1.distTo(p2) / 3 + 1.2),
