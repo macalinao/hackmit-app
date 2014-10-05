@@ -173,6 +173,7 @@ function loadData() {
 
       //when an airline is selected show all paths for that airline
       airlineList.addEventListener('change', function(e) {
+        var numEdges = 0;
         var target = e.target,
           airlineId = target.id.split('-')[1];
 
@@ -180,9 +181,12 @@ function loadData() {
           if (target.checked) {
             airlineMgr.add(airlineId);
             centerAirline(airlineId);
+            numEdges += data.airlinesRoutes[airlineId].length
           } else {
             airlineMgr.remove(airlineId);
+            numEdges -= data.airlinesRoutes[airlineId].length
           }
+            $('infoText').textContent = 'Number of events: ' + numEdges;
         }
 
         if (data.airlinesRoutes[airlineId]) {
