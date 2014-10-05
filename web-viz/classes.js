@@ -268,15 +268,11 @@ var AirlineManager = function(data, models) {
       this.show(model);
 
       airlineIds.push(airline);
-      //set color for airline Id
-      availableColors[color]++;
-      airlineIdColor[airline] = color;
     },
 
     remove: function(airline) {
       var airlines = models.airlines,
-        model = airlines[airline],
-        color = airlineIdColor[airline];
+        model = airlines[airline];
 
       this.hide(model);
 
