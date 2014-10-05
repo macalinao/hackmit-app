@@ -56,7 +56,8 @@ $(function() {
         e.preventDefault();
 
         // Select
-        alert('select ' + $curr.text());
+        var loc = $curr.text();
+        window.location = '/viz/?loc=' + loc;
       }
 
     }
