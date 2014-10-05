@@ -27,8 +27,11 @@ function createCitiesLayer(cities) {
 
   for (var prop in cities) {
     var city = cities[prop],
-        theta = pi2 - (+city[3] + 180) / 360 * pi2,
-        phi = pi - (+city[2] + 90) / 180 * pi,
+        // in original code, city[2] <-> lat, city[3] <-> lon
+        lat = city[1]
+        lon = city[2]
+        theta = pi2 - (+lon + 180) / 360 * pi2,
+        phi = pi - (+lat + 90) / 180 * pi,
         sinTheta = sin(theta),
         cosTheta = cos(theta),
         sinPhi = sin(phi),
