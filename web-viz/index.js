@@ -3,17 +3,27 @@ PhiloGL.unpack();
 Scene.PICKING_RES = 1;
 
 //some locals
-var $ = function(id) { return document.getElementById(id); },
-    $$ = function(selector) { return document.querySelectorAll(selector); },
-    citiesWorker = new Worker('cities.js'),
-    data = { citiesRoutes: {}, airlinesRoutes: {} },
-    models = { airlines: {} }, geom = {},
-    airlineMgr = new AirlineManager(data, models),
-    fx = new Fx({
-      duration: 1000,
-      transition: Fx.Transition.Expo.easeInOut
-    }),
-    airlineList, pos, tooltip;
+var $ = function(id) {
+    return document.getElementById(id);
+  },
+  $$ = function(selector) {
+    return document.querySelectorAll(selector);
+  },
+  citiesWorker = new Worker('cities.js'),
+  data = {
+    citiesRoutes: {},
+    airlinesRoutes: {}
+  },
+  models = {
+    airlines: {}
+  },
+  geom = {},
+  airlineMgr = new AirlineManager(data, models),
+  fx = new Fx({
+    duration: 1000,
+    transition: Fx.Transition.Expo.easeInOut
+  }),
+  airlineList, pos, tooltip;
 
 //Get handles when document is ready
 document.onreadystatechange = function() {
@@ -25,15 +35,15 @@ document.onreadystatechange = function() {
     //Add search handler
     $('search').addEventListener('keyup', (function() {
       var timer = null,
-          parentNode = airlineList.parentNode,
-          lis = airlineList.getElementsByTagName('li'),
-          previousText = '';
+        parentNode = airlineList.parentNode,
+        lis = airlineList.getElementsByTagName('li'),
+        previousText = '';
 
       function search(value) {
         parentNode.removeChild(airlineList);
         for (var i = 0, l = lis.length; i < l; i++) {
           var li = lis[i],
-              text = li.textContent || li.innerText;
+            text = li.textContent || li.innerText;
           li.style.display = text.trim().toLowerCase().indexOf(value) > -1 ? '' : 'none';
         }
         parentNode.appendChild(airlineList);
@@ -68,7 +78,7 @@ models.earth = new O3D.Sphere({
   textures: ['img/lala.jpg'],
   program: 'earth'
 });
-models.earth.rotation.set(Math.PI, 0,  0);
+models.earth.rotation.set(Math.PI, 0, 0);
 models.earth.update();
 
 //Create cities layer model and create PhiloGL app.
@@ -76,7 +86,7 @@ citiesWorker.onmessage = function(e) {
   var modelInfo = e.data;
 
   if (typeof modelInfo == 'number') {
-      Log.write('Building models ' + modelInfo + '%');
+    Log.write('Building models ' + modelInfo + '%');
   } else {
     data.citiesIndex = modelInfo.citiesIndex;
     models.cities = new O3D.Model(Object.create(modelInfo, {
@@ -122,7 +132,7 @@ function loadData() {
     },
     onProgress: function(e) {
       Log.write('Loading airports data, please wait...' +
-                (e.total ? Math.round(e.loaded / e.total * 1000) / 10 : ''));
+        (e.total ? Math.round(e.loaded / e.total * 1000) / 10 : ''));
     },
     onError: function() {
       Log.write('There was an error while fetching cities data.', true);
@@ -134,18 +144,18 @@ function loadData() {
     url: 'data/airlines.json',
     onSuccess: function(json) {
       var airlines = data.airlines = JSON.parse(json),
-          airlinePos = data.airlinePos = {},
-          html = [],
-          pi = Math.PI,
-          pi2 = pi * 2,
-          sin = Math.sin,
-          cos = Math.cos,
-          phi, theta, sinTheta, cosTheta, sinPhi, cosPhi;
+        airlinePos = data.airlinePos = {},
+        html = [],
+        pi = Math.PI,
+        pi2 = pi * 2,
+        sin = Math.sin,
+        cos = Math.cos,
+        phi, theta, sinTheta, cosTheta, sinPhi, cosPhi;
       //assuming the data will be available after the document is ready...
       for (var i = 0, l = airlines.length; i < l; i++) {
         var airline = airlines[i],
-            airlineId = airline[0],
-            airlineName = airline[1];
+          airlineId = airline[0],
+          airlineName = airline[1];
 
         phi = pi - (+airline[3] + 90) / 180 * pi;
         theta = pi2 - (+airline[4] + 180) / 360 * pi2;
@@ -154,17 +164,17 @@ function loadData() {
         sinPhi = sin(phi);
         cosPhi = cos(phi);
 
-        airlinePos[airlineId] = [ cosTheta * sinPhi, cosPhi, sinTheta * sinPhi, phi, theta ];
+        airlinePos[airlineId] = [cosTheta * sinPhi, cosPhi, sinTheta * sinPhi, phi, theta];
 
         html.push('<label for=\'checkbox-' +
-                  airlineId + '\'><input type=\'checkbox\' id=\'checkbox-' +
-                      airlineId + '\' /> ' + airlineName + '</label>');
+          airlineId + '\'><input type=\'checkbox\' id=\'checkbox-' +
+          airlineId + '\' /> ' + airlineName + '</label>');
       }
 
       //when an airline is selected show all paths for that airline
       airlineList.addEventListener('change', function(e) {
         var target = e.target,
-            airlineId = target.id.split('-')[1];
+          airlineId = target.id.split('-')[1];
 
         function callback() {
           if (target.checked) {
@@ -207,14 +217,14 @@ function loadData() {
 //center the airline
 function centerAirline(airlineId) {
   var pos = data.airlinePos[airlineId],
-      earth = models.earth,
-      cities = models.cities,
-      phi = pos[3],
-      theta = pos[4],
-      phiPrev = geom.phi || Math.PI / 2,
-      thetaPrev = geom.theta || (3 * Math.PI / 2),
-      phiDiff = phi - phiPrev,
-      thetaDiff = theta - thetaPrev;
+    earth = models.earth,
+    cities = models.cities,
+    phi = pos[3],
+    theta = pos[4],
+    phiPrev = geom.phi || Math.PI / 2,
+    thetaPrev = geom.theta || (3 * Math.PI / 2),
+    phiDiff = phi - phiPrev,
+    thetaDiff = theta - thetaPrev;
 
   geom.matEarth = earth.matrix.clone();
   geom.matCities = cities.matrix.clone();
@@ -234,17 +244,17 @@ function centerAirline(airlineId) {
 //rotate the planet of phi and theta angles
 function rotateXY(phi, theta) {
   var earth = models.earth,
-      cities = models.cities,
-      airlines = models.airlines,
-      xVec = [1, 0, 0],
-      yVec = [0, 1, 0],
-      yVec2 =[0, -1, 0];
+    cities = models.cities,
+    airlines = models.airlines,
+    xVec = [1, 0, 0],
+    yVec = [0, 1, 0],
+    yVec2 = [0, -1, 0];
 
   earth.matrix = geom.matEarth.clone();
   cities.matrix = geom.matCities.clone();
 
   var m1 = new Mat4(),
-      m2 = new Mat4();
+    m2 = new Mat4();
 
   m1.$rotateAxis(phi, xVec);
   m2.$rotateAxis(phi, xVec);
@@ -253,7 +263,7 @@ function rotateXY(phi, theta) {
   m2.$mulMat4(cities.matrix);
 
   var m3 = new Mat4(),
-      m4 = new Mat4();
+    m4 = new Mat4();
 
   m3.$rotateAxis(theta, yVec2);
   m4.$rotateAxis(theta, yVec);
@@ -287,7 +297,7 @@ function createApp() {
       vs: 'layer.vs.glsl',
       fs: 'layer.fs.glsl',
       noCache: true
-    },{
+    }, {
       //to render the globe
       id: 'earth',
       from: 'uris',
@@ -306,7 +316,9 @@ function createApp() {
     }],
     camera: {
       position: {
-        x: 0, y: 0, z: -5.125
+        x: 0,
+        y: 0,
+        z: -5.125
       }
     },
     scene: {
@@ -350,21 +362,21 @@ function createApp() {
       },
       onDragMove: function(e) {
         var phi = geom.phi,
-            theta = geom.theta,
-            clamp = function(val, min, max) {
-                return Math.max(Math.min(val, max), min);
-            },
-            y = -(e.y - pos.y) / 100,
-            x = (e.x - pos.x) / 100;
+          theta = geom.theta,
+          clamp = function(val, min, max) {
+            return Math.max(Math.min(val, max), min);
+          },
+          y = -(e.y - pos.y) / 100,
+          x = (e.x - pos.x) / 100;
 
         rotateXY(y, x);
 
       },
       onDragEnd: function(e) {
         var y = -(e.y - pos.y) / 100,
-            x = (e.x - pos.x) / 100,
-            newPhi = (geom.phi + y) % Math.PI,
-            newTheta = (geom.theta + x) % (Math.PI * 2);
+          x = (e.x - pos.x) / 100,
+          newPhi = (geom.phi + y) % Math.PI,
+          newTheta = (geom.theta + x) % (Math.PI * 2);
 
         newPhi = newPhi < 0 ? (Math.PI + newPhi) : newPhi;
         newTheta = newTheta < 0 ? (Math.PI * 2 + newTheta) : newTheta;
@@ -378,18 +390,18 @@ function createApp() {
       },
       onMouseWheel: function(e) {
         var camera = this.camera,
-            from = -5.125,
-            to = -2.95,
-            pos = camera.position,
-            pz = pos.z,
-            speed = (1 - Math.abs((pz - from) / (to - from) * 2 - 1)) / 6 + 0.001;
+          from = -5.125,
+          to = -2.95,
+          pos = camera.position,
+          pz = pos.z,
+          speed = (1 - Math.abs((pz - from) / (to - from) * 2 - 1)) / 6 + 0.001;
 
         pos.z += e.wheel * speed;
 
         if (pos.z > to) {
-            pos.z = to;
+          pos.z = to;
         } else if (pos.z < from) {
-            pos.z = from;
+          pos.z = from;
         }
 
         clearTimeout(this.resetTimer);
@@ -403,9 +415,9 @@ function createApp() {
         if (model) {
           clearTimeout(this.timer);
           var style = tooltip.style,
-              name = data.citiesIndex[model.$pickingIndex].split('^'),
-              textName = name[1][0].toUpperCase() + name[1].slice(1) + ', ' + name[0][0].toUpperCase() + name[0].slice(1),
-              bbox = this.canvas.getBoundingClientRect();
+            name = data.citiesIndex[model.$pickingIndex].split('^'),
+            textName = name[1][0].toUpperCase() + name[1].slice(1) + ', ' + name[0][0].toUpperCase() + name[0].slice(1),
+            bbox = this.canvas.getBoundingClientRect();
 
           style.top = (e.y + 10 + bbox.top) + 'px';
           style.left = (e.x + 5 + bbox.left) + 'px';
@@ -431,13 +443,13 @@ function createApp() {
 
       //Unpack app properties
       var gl = app.gl,
-          scene = app.scene,
-          camera = app.camera,
-          canvas = app.canvas,
-          width = canvas.width,
-          height = canvas.height,
-          program = app.program,
-          clearOpt = gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT;
+        scene = app.scene,
+        camera = app.camera,
+        canvas = app.canvas,
+        width = canvas.width,
+        height = canvas.height,
+        program = app.program,
+        clearOpt = gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT;
 
       app.tooltip = $('tooltip');
       //nasty
@@ -454,35 +466,35 @@ function createApp() {
         width: 1024,
         height: 1024,
         bindToTexture: {
-          parameters : [ {
-            name : 'TEXTURE_MAG_FILTER',
-            value : 'LINEAR'
+          parameters: [{
+            name: 'TEXTURE_MAG_FILTER',
+            value: 'LINEAR'
           }, {
-            name : 'TEXTURE_MIN_FILTER',
-            value : 'LINEAR',
-            generateMipmap : false
-          } ]
+            name: 'TEXTURE_MIN_FILTER',
+            value: 'LINEAR',
+            generateMipmap: false
+          }]
         },
         bindToRenderBuffer: true
       }).setFrameBuffer('world2', {
         width: 1024,
         height: 1024,
         bindToTexture: {
-          parameters : [ {
-            name : 'TEXTURE_MAG_FILTER',
-            value : 'LINEAR'
+          parameters: [{
+            name: 'TEXTURE_MAG_FILTER',
+            value: 'LINEAR'
           }, {
-            name : 'TEXTURE_MIN_FILTER',
-            value : 'LINEAR',
-            generateMipmap : false
-          } ]
+            name: 'TEXTURE_MIN_FILTER',
+            value: 'LINEAR',
+            generateMipmap: false
+          }]
         },
         bindToRenderBuffer: true
       });
 
       //picking scene
       scene.add(models.earth,
-                models.cities);
+        models.cities);
 
       draw();
 
@@ -496,14 +508,14 @@ function createApp() {
         gl.viewport(0, 0, 1024, 1024);
 
         program.earth.use();
-        program.earth.setUniform('renderType',  0);
+        program.earth.setUniform('renderType', 0);
         app.setFrameBuffer('world', true);
         gl.clear(clearOpt);
         scene.renderToTexture('world');
         app.setFrameBuffer('world', false);
 
         program.earth.use();
-        program.earth.setUniform('renderType',  -1);
+        program.earth.setUniform('renderType', -1);
         app.setFrameBuffer('world2', true);
         gl.clear(clearOpt);
         scene.renderToTexture('world2');
@@ -522,4 +534,3 @@ function createApp() {
     }
   });
 }
-

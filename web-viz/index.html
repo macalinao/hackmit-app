@@ -1,59 +1,56 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Cooperation Visualization</title>
-    <link rel="stylesheet" media="all" type="text/css" href="style.css" />
-    <script src="../../build/PhiloGL.js"></script>
-    <script src="classes.js"></script>
-    <script src="index.js"></script>
-  </head>
-  <body>
-    <div id="log-panel" style="display:none;">
-      <span id="log-message"></span>
-    </div>
-  
-    <div id="fallback" class="fallback"></div>
-    
-    <div id="container">
-      <div id="title">
-        <h1>Cooperation Between Cities</h1>
-        <div class="description">
-          News articles from October 2013 to October 2014 were mined to
-          for evidence indicating material cooperation between cities.
-          Data provided by <a href="http://gdeltproject.org">The GDELT Project</a>
-          and mined with BigQuery. Visualization built using
-          <a href="https://github.com/senchalabs/philogl">PhiloGL</a>.
-        </div>
-      </div>
 
-      <div class="canvas-container">
-        <div id="canvas-wrapper">
-          <canvas id="map-canvas" width="1024" height="1024"></canvas>
-        </div>
-        <div id="list-wrapper" class="list-wrapper" style="display:none;">     
-          <input type="text" id="search" placeholder="Search for an Airline" style="display:none"/>
-          <ul id="selected-airlines">                                          
-          </ul>                                                                
-          <div class="list-container">                                         
-            <ul id="airline-list"></ul>                                        
-          </div>                                                               
-        </div>                                                                 
-        <div style="clear:both;"></div>
+<head>
+  <title>Cooperation Visualization</title>
+  <link rel="stylesheet" media="all" type="text/css" href="style.css" />
+</head>
+
+<body>
+  <div id="log-panel" style="display:none;">
+    <span id="log-message"></span>
+  </div>
+
+  <div id="fallback" class="fallback"></div>
+
+  <div id="container">
+    <div id="title">
+      <h1>Cooperation Between Cities</h1>
+      <div class="description">
+        News articles from October 2013 to October 2014 were mined to for evidence indicating material cooperation between cities. Data provided by <a href="http://gdeltproject.org">The GDELT Project</a>
+        and mined with BigQuery. Visualization built using
+        <a href="https://github.com/senchalabs/philogl">PhiloGL</a>.
       </div>
+    </div>
+
+    <div class="canvas-container">
+      <div id="canvas-wrapper">
+        <canvas id="map-canvas" width="1024" height="1024"></canvas>
+      </div>
+      <div id="list-wrapper" class="list-wrapper" style="display:none;">
+        <input type="text" id="search" placeholder="Search for an Airline" style="display:none" />
+        <ul id="selected-airlines">
+        </ul>
+        <div class="list-container">
+          <ul id="airline-list"></ul>
+        </div>
+      </div>
+      <div style="clear:both;"></div>
     </div>
   </div>
-  
+  </div>
+
   <div class="tooltip hide" id="tooltip" style="width:auto;"></div>
-  
+
+  <script src="build/PhiloGL.js"></script>
+  <script src="classes.js"></script>
+  <script src="index.js"></script>
   <script>
     if (!PhiloGL.hasWebGL()) {
       document.body.className = 'no-webgl';
-      document.getElementById('fallback').innerHTML = ''
-        +  '<div style="margin:10px;">'
-        +   'Your browser (or hardware) does not support WebGL. Go <a href="http://get.webgl.org">here</a> to find more information.'
-        +  '</div>'
-        +   '<iframe width="853" height="510" src="http://www.youtube.com/embed/b263ETg5zqI" frameborder="0" allowfullscreen></iframe>';
+      document.getElementById('fallback').innerHTML = '' + '<div style="margin:10px;">' + 'Your browser (or hardware) does not support WebGL. Go <a href="http://get.webgl.org">here</a> to find more information.' + '</div>' + '<iframe width="853" height="510" src="http://www.youtube.com/embed/b263ETg5zqI" frameborder="0" allowfullscreen></iframe>';
     }
   </script>
 </body>
+
 </html>

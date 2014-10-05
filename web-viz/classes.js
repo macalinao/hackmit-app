@@ -4,21 +4,21 @@
 var Log = {
   elem: null,
   timer: null,
-  
+
   getElem: function() {
     if (!this.elem) {
       return (this.elem = $('log-message'));
     }
     return this.elem;
   },
-  
+
   write: function(text, hide) {
     if (this.timer) {
       this.timer = clearTimeout(this.timer);
     }
-    
+
     var elem = this.getElem(),
-        style = elem.parentNode.style;
+      style = elem.parentNode.style;
 
     elem.innerHTML = text;
     style.display = '';
@@ -37,14 +37,26 @@ var RightMenu = function(airlineList, airlineMgr) {
   me.airlineList = airlineList;
   me.airlineMgr = airlineMgr;
   me.selectedAirlines = $('selected-airlines');
-  
-  airlineList.addEventListener('mousemove', function(e) { me.onMouseMove(e); }, false);
-  airlineList.addEventListener('mouseout', function(e) { me.onMouseOut(e); }, false);
-  airlineList.addEventListener('change', function(e) { me.onChange(e); }, false);
 
-  me.selectedAirlines.addEventListener('click', function(e) { me.onClick(e); }, false);
-  me.selectedAirlines.addEventListener('mousemove', function(e) { me.onHover(e); }, false);
-  me.selectedAirlines.addEventListener('mouseout', function (e) { me.onLeave(e); }, false);
+  airlineList.addEventListener('mousemove', function(e) {
+    me.onMouseMove(e);
+  }, false);
+  airlineList.addEventListener('mouseout', function(e) {
+    me.onMouseOut(e);
+  }, false);
+  airlineList.addEventListener('change', function(e) {
+    me.onChange(e);
+  }, false);
+
+  me.selectedAirlines.addEventListener('click', function(e) {
+    me.onClick(e);
+  }, false);
+  me.selectedAirlines.addEventListener('mousemove', function(e) {
+    me.onHover(e);
+  }, false);
+  me.selectedAirlines.addEventListener('mouseout', function(e) {
+    me.onLeave(e);
+  }, false);
 };
 
 RightMenu.prototype = {
@@ -54,7 +66,7 @@ RightMenu.prototype = {
 
   onMouseMove: function(e) {
     var target = e.target,
-        nodeName = target.nodeName;
+      nodeName = target.nodeName;
 
     if (nodeName == 'INPUT') {
       target = target.parentNode;
@@ -66,12 +78,12 @@ RightMenu.prototype = {
 
     if (target.nodeName == 'LI') {
       var elem = target,
-          prev = elem,
-          next = elem.nextSibling,
-          x = e.pageX,
-          y = e.pageY,
-          tol = 30,
-          box, elemY, style, lerp;
+        prev = elem,
+        next = elem.nextSibling,
+        x = e.pageX,
+        y = e.pageY,
+        tol = 30,
+        box, elemY, style, lerp;
 
       while (prev || next) {
         if (prev) {
@@ -86,12 +98,12 @@ RightMenu.prototype = {
           style = next.style;
           box = next.getBoundingClientRect();
           elemY = (box.top + box.bottom) / 2;
-          lerp = (1 + Math.min(Math.abs(y - elemY), tol) / tol  * -1);
+          lerp = (1 + Math.min(Math.abs(y - elemY), tol) / tol * -1);
           next = next.nextSibling;
           style.fontSize = (1 + (1.6 - 1) * lerp) + 'em';
         }
       }
-    }  
+    }
   },
 
   onMouseOut: function(e) {
@@ -105,16 +117,16 @@ RightMenu.prototype = {
 
   onChange: function(e) {
     var checkbox = e.target,
-        label = checkbox.parentNode,
-        airlineId = checkbox.id.split('-')[1],
-        name = label.textContent,
-        airlineMgr = this.airlineMgr,
-        color = airlineMgr.getColor(airlineId) || airlineMgr.getAvailableColor();
+      label = checkbox.parentNode,
+      airlineId = checkbox.id.split('-')[1],
+      name = label.textContent,
+      airlineMgr = this.airlineMgr,
+      color = airlineMgr.getColor(airlineId) || airlineMgr.getAvailableColor();
 
     if (checkbox.checked) {
       this.selectedAirlines.innerHTML += '<li id=\'' + airlineId + '-selected\'>' +
-        '<input type=\'checkbox\' checked id=\'' + airlineId + '-checkbox-selected\' />' + 
-        '<div class=\'square\' style=\'background-color:rgb(' + color + ');\' ></div>' + 
+        '<input type=\'checkbox\' checked id=\'' + airlineId + '-checkbox-selected\' />' +
+        '<div class=\'square\' style=\'background-color:rgb(' + color + ');\' ></div>' +
         name + '</li>';
     } else {
       var node = $(airlineId + '-selected');
@@ -123,7 +135,8 @@ RightMenu.prototype = {
   },
 
   onClick: function(e) {
-    var target = e.target, node;
+    var target = e.target,
+      node;
     if (target.nodeName == 'INPUT') {
       var airlineId = target.parentNode.id.split('-')[0];
       var checkbox = $('checkbox-' + airlineId);
@@ -144,7 +157,8 @@ RightMenu.prototype = {
   },
 
   onHover: function(e) {
-    var target = e.target, airlineId;
+    var target = e.target,
+      airlineId;
     if (target.nodeName == 'INPUT') {
       airlineId = target.parentNode.id.split('-')[0];
     } else {
@@ -157,16 +171,16 @@ RightMenu.prototype = {
       models.airlines[name].lineWidth = name == airlineId ? 2 : 1;
     }
   },
-  
+
   onLeave: function(e) {
     var rt = e.relatedTarget,
-        pn = rt && rt.parentNode,
-        pn2 = pn && pn.parentNode;
+      pn = rt && rt.parentNode,
+      pn2 = pn && pn.parentNode;
 
-    if (rt != this.selectedAirlines && 
-        pn != this.selectedAirlines &&
-       pn2 != this.selectedAirlines) {
-      
+    if (rt != this.selectedAirlines &&
+      pn != this.selectedAirlines &&
+      pn2 != this.selectedAirlines) {
+
       for (var name in models.airlines) {
         models.airlines[name].lineWidth = 1;
       }
@@ -180,7 +194,7 @@ RightMenu.prototype = {
 var AirlineManager = function(data, models) {
 
   var airlineIdColor = {};
-  
+
   var availableColors = {
     '171, 217, 233': 0,
     '253, 174, 97': 0,
@@ -192,7 +206,7 @@ var AirlineManager = function(data, models) {
 
   var getAvailableColor = function() {
     var min = Infinity,
-        res = false;
+      res = false;
     for (var color in availableColors) {
       var count = availableColors[color];
       if (count < min) {
@@ -204,33 +218,34 @@ var AirlineManager = function(data, models) {
   };
 
   return {
-    
+
     airlineIds: [],
 
     getColor: function(airlineId) {
-        return airlineIdColor[airlineId];
+      return airlineIdColor[airlineId];
     },
 
     getAvailableColor: getAvailableColor,
 
     add: function(airline) {
       var airlineIds = this.airlineIds,
-          color = getAvailableColor(),
-          routes = data.airlinesRoutes[airline],
-          airlines = models.airlines,
-          model = airlines[airline],
-          samplings = 10,
-          vertices = [],
-          indices = [],
-          fromTo = [],
-          sample = [],
-          parsedColor;
+        color = getAvailableColor(),
+        routes = data.airlinesRoutes[airline],
+        airlines = models.airlines,
+        model = airlines[airline],
+        samplings = 10,
+        vertices = [],
+        indices = [],
+        fromTo = [],
+        sample = [],
+        parsedColor;
 
       parsedColor = color.split(',');
-      parsedColor = [parsedColor[0] / (255 * 1.3), 
-                     parsedColor[1] / (255 * 1.3), 
-                     parsedColor[2] / (255 * 1.3)];
-      
+      parsedColor = [parsedColor[0] / (255 * 1.3),
+        parsedColor[1] / (255 * 1.3),
+        parsedColor[2] / (255 * 1.3)
+      ];
+
       if (model) {
         model.uniforms.color = parsedColor;
       } else {
@@ -251,8 +266,8 @@ var AirlineManager = function(data, models) {
             color: parsedColor
           },
           render: function(gl, program, camera) {
-              gl.lineWidth(this.lineWidth || 1);
-              gl.drawElements(gl.LINES, this.$indicesLength, gl.UNSIGNED_SHORT, 0);
+            gl.lineWidth(this.lineWidth || 1);
+            gl.drawElements(gl.LINES, this.$indicesLength, gl.UNSIGNED_SHORT, 0);
           },
           attributes: {
             fromTo: {
@@ -270,7 +285,7 @@ var AirlineManager = function(data, models) {
           transition: Fx.Transition.Quart.easeOut
         });
       }
-      
+
       this.show(model);
 
       airlineIds.push(airline);
@@ -278,11 +293,11 @@ var AirlineManager = function(data, models) {
       availableColors[color]++;
       airlineIdColor[airline] = color;
     },
-    
+
     remove: function(airline) {
       var airlines = models.airlines,
-          model = airlines[airline],
-          color = airlineIdColor[airline];
+        model = airlines[airline],
+        color = airlineIdColor[airline];
 
       this.hide(model);
 
@@ -324,16 +339,16 @@ var AirlineManager = function(data, models) {
 
     getCoordinates: function(from, to) {
       var pi = Math.PI,
-          pi2 = pi * 2,
-          sin = Math.sin,
-          cos = Math.cos,
-          theta = pi2 - (+to + 180) / 360 * pi2,
-          phi = pi - (+from + 90) / 180 * pi,
-          sinTheta = sin(theta),
-          cosTheta = cos(theta),
-          sinPhi = sin(phi),
-          cosPhi = cos(phi),
-          p = new Vec3(cosTheta * sinPhi, cosPhi, sinTheta * sinPhi);
+        pi2 = pi * 2,
+        sin = Math.sin,
+        cos = Math.cos,
+        theta = pi2 - (+to + 180) / 360 * pi2,
+        phi = pi - (+from + 90) / 180 * pi,
+        sinTheta = sin(theta),
+        cosTheta = cos(theta),
+        sinPhi = sin(phi),
+        cosPhi = cos(phi),
+        p = new Vec3(cosTheta * sinPhi, cosPhi, sinTheta * sinPhi);
 
       return {
         theta: theta,
@@ -345,9 +360,9 @@ var AirlineManager = function(data, models) {
     //creates a quadratic bezier curve as a route
     createRoute: function(route, offset) {
       var key1 = route[0]
-          city1 = data.cities[key1],
-          key2 = route[1]
-          city2 = data.cities[key2];
+      city1 = data.cities[key1],
+      key2 = route[1]
+      city2 = data.cities[key2];
 
       if (!city1 || !city2) {
         return {
@@ -359,22 +374,22 @@ var AirlineManager = function(data, models) {
       }
 
       var c1 = this.getCoordinates(city1[1], city1[2]),
-          c2 = this.getCoordinates(city2[1], city2[2]),
-          p1 = c1.p,
-          p2 = c2.p,
-          p3 = p2.add(p1).$scale(0.5).$unit().$scale(p1.distTo(p2) / 3 + 1.2),
-          theta1 = c1.theta,
-          theta2 = c2.theta,
-          phi1 = c1.phi,
-          phi2 = c2.phi,
-          pArray = [],
-          pIndices = [],
-          fromTo = [],
-          sample = [],
-          t = 0,
-          count = 0,
-          samplings = 10,
-          deltat = 1 / samplings;
+        c2 = this.getCoordinates(city2[1], city2[2]),
+        p1 = c1.p,
+        p2 = c2.p,
+        p3 = p2.add(p1).$scale(0.5).$unit().$scale(p1.distTo(p2) / 3 + 1.2),
+        theta1 = c1.theta,
+        theta2 = c2.theta,
+        phi1 = c1.phi,
+        phi2 = c2.phi,
+        pArray = [],
+        pIndices = [],
+        fromTo = [],
+        sample = [],
+        t = 0,
+        count = 0,
+        samplings = 10,
+        deltat = 1 / samplings;
 
       for (var i = 0; i <= samplings; i++) {
         pArray.push(p3[0], p3[1], p3[2]);
@@ -382,7 +397,7 @@ var AirlineManager = function(data, models) {
         sample.push(i);
 
         if (i !== 0) {
-          pIndices.push(i -1, i);
+          pIndices.push(i - 1, i);
         }
       }
 
@@ -390,7 +405,9 @@ var AirlineManager = function(data, models) {
         vertices: pArray,
         fromTo: fromTo,
         sample: sample,
-        indices: pIndices.map(function(i) { return i + offset; }),
+        indices: pIndices.map(function(i) {
+          return i + offset;
+        }),
         p1: p1,
         p2: p2
       };
