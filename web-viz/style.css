@@ -227,3 +227,9 @@ canvas {
   text-align: center;
   margin-top: -200px;
 }
+#logo {
+  width: 300px;
+  position: absolute;
+  margin-top: 10%;
+  margin-left: 35%;
+}
