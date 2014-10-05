@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Relevant</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <style type="text/css">
+    body {
+      font-family: Lato, Arial, sans-serif;
+      background-color: #000000;
+      color: #ffffff;
+    }
+    .content {
+      font-size: 80px;
+      text-align: center;
+      width: 700px;
+      margin: 0px auto;
+    }
+    li {
+      font-size: 40px;
+      padding: 20px;
+      display: block;
+      text-align: left;
+      background-color: #111;
+    }
+    .selected {
+      background-color: #333;
+    }
+    .selected:before {
+      content: '> ';
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <p>Where are you?</p>
+    <ul id="locs">
+    </ul>
+  </div>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/lodash/dist/lodash.min.js"></script>
+  <script src="entry.js"></script>
+</body>
+
+</html>
