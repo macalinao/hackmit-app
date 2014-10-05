@@ -11,10 +11,15 @@
       color: #ffffff;
     }
     .content {
-      font-size: 80px;
       text-align: center;
       width: 700px;
       margin: 0px auto;
+    }
+    h1 {
+      font-size: 80px;
+    }
+    p {
+      font-size: 40px;
     }
     li {
       font-size: 40px;
@@ -29,14 +34,26 @@
     .selected:before {
       content: '> ';
     }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
   <div class="content">
-    <p>Where are you?</p>
-    <ul id="locs">
-    </ul>
+    <div id="step1">
+      <h1>WorldAware</h1>
+      <p>Become aware of the world.</p>
+      <ul>
+        <li class="selected">Start</li>
+      </ul>
+    </div>
+    <div id="step2" class="hidden">
+      <h1>Where are you?</h1>
+      <ul id="locs">
+      </ul>
+    </div>
   </div>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/lodash/dist/lodash.min.js"></script>
