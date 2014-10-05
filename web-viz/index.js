@@ -74,6 +74,7 @@ models.earth.update();
 //Create cities layer model and create PhiloGL app.
 citiesWorker.onmessage = function(e) {
   var modelInfo = e.data;
+  Log.write(e);
 
   if (typeof modelInfo == 'number') {
       Log.write('Building models ' + modelInfo + '%');
@@ -114,7 +115,7 @@ function loadData() {
   Log.write('Loading data...');
   //Request cities data
   new IO.XHR({
-    url: 'data/cities.json',
+    url: 'data/cooperation-nodes.json',
     onSuccess: function(json) {
       data.cities = JSON.parse(json);
       citiesWorker.postMessage(data.cities);
@@ -131,7 +132,7 @@ function loadData() {
 
   //Request airline data
   new IO.XHR({
-    url: 'data/airlines.json',
+    url: 'data/cooperation-edges.json',
     onSuccess: function(json) {
       var airlines = data.airlines = JSON.parse(json),
           airlinePos = data.airlinePos = {},
@@ -144,9 +145,10 @@ function loadData() {
       //assuming the data will be available after the document is ready...
       for (var i = 0, l = airlines.length -1; i < l; i++) {
         var airline = airlines[i],
-            airlineId = airline[0],
-            airlineName = airline[1];
+            src = airline[0],
+            tgt = airline[1],
 
+        // in original code: airline = (ID, Name, ???, lat, lon)
         phi = pi - (+airline[3] + 90) / 180 * pi;
         theta = pi2 - (+airline[4] + 180) / 360 * pi2;
         sinTheta = sin(theta);
@@ -156,9 +158,9 @@ function loadData() {
 
         airlinePos[airlineId] = [ cosTheta * sinPhi, cosPhi, sinTheta * sinPhi, phi, theta ];
 
-        html.push('<label for=\'checkbox-' +
-                  airlineId + '\'><input type=\'checkbox\' id=\'checkbox-' +
-                      airlineId + '\' /> ' + airlineName + '</label>');
+        //html.push('<label for=\'checkbox-' +
+                  //airlineId + '\'><input type=\'checkbox\' id=\'checkbox-' +
+                      //airlineId + '\' /> ' + airlineName + '</label>');
       }
 
       //when an airline is selected show all paths for that airline
