@@ -121,7 +121,7 @@ RightMenu.prototype = {
       airlineId = checkbox.id.split('-')[1],
       name = label.textContent,
       airlineMgr = this.airlineMgr,
-      color = airlineMgr.getColor(airlineId) || airlineMgr.getAvailableColor();
+      color = airlineMgr.getColor(airlineId);
 
     if (checkbox.checked) {
       this.selectedAirlines.innerHTML += '<li id=\'' + airlineId + '-selected\'>' +
@@ -193,28 +193,9 @@ RightMenu.prototype = {
 //for the selected airlines
 var AirlineManager = function(data, models) {
 
-  var airlineIdColor = {};
-
-  var availableColors = {
-    '171, 217, 233': 0,
-    '253, 174, 97': 0,
-    '244, 109, 67': 0,
-    '255, 115, 136': 0,
-    '186, 247, 86': 0,
-    '220, 50, 50': 0
-  };
-
-  var getAvailableColor = function() {
-    var min = Infinity,
-      res = false;
-    for (var color in availableColors) {
-      var count = availableColors[color];
-      if (count < min) {
-        min = count;
-        res = color;
-      }
-    }
-    return res;
+  var colors = {
+    cooperation: '0, 255, 0',
+    conflict: '255, 0, 0'
   };
 
   return {
@@ -222,14 +203,12 @@ var AirlineManager = function(data, models) {
     airlineIds: [],
 
     getColor: function(airlineId) {
-      return airlineIdColor[airlineId];
+      return colors[airlineId];
     },
-
-    getAvailableColor: getAvailableColor,
 
     add: function(airline) {
       var airlineIds = this.airlineIds,
-        color = getAvailableColor(),
+        color = colors[airline],
         routes = data.airlinesRoutes[airline],
         airlines = models.airlines,
         model = airlines[airline],
