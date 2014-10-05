@@ -10,8 +10,7 @@ if __name__ == '__main__':
     with open('cooperation-Edges.csv', 'rb') as csvfile:
         csvreader = csv.reader(csvfile, delimiter=',', quotechar='"')
         # each entry is (Src lat, src lon, Tgt lat, tgt lon, Weight)
-        edge_list = [(city_to_data[src][1:3] + city_to_data[tgt][1:3] + [weight])
-                for src,tgt,weight in csvreader]
+        edge_list = [line for line in csvreader]
     with open('cooperation-edges.json', 'w') as fout:
         fout.write(json.dumps(edge_list, encoding='latin-1'))
     with open('cooperation-nodes.json', 'w') as fout:

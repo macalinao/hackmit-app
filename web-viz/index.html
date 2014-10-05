@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>World Cooperation Visualization</title>
+    <title>Cooperation Visualization</title>
     <link rel="stylesheet" media="all" type="text/css" href="style.css" />
     <script src="../../build/PhiloGL.js"></script>
     <script src="classes.js"></script>
@@ -16,31 +16,31 @@
     
     <div id="container">
       <div id="title">
-        <h1>World Cooperation</h1>
-        <div class="description">Visualize world cooperation data from http://gdeltproject.org data</div>
+        <h1>Cooperation Between Cities</h1>
+        <div class="description">
+          News articles from October 2013 to October 2014 were mined to
+          for evidence indicating material cooperation between cities.
+          Data provided by <a href="http://gdeltproject.org">The GDELT Project</a>
+          and mined with BigQuery. Visualization built using
+          <a href="https://github.com/senchalabs/philogl">PhiloGL</a>.
+        </div>
       </div>
 
       <div class="canvas-container">
         <div id="canvas-wrapper">
           <canvas id="map-canvas" width="1024" height="1024"></canvas>
         </div>
-        <div id="list-wrapper" class="list-wrapper" style="display:none;">
-          <input type="text" id="search" placeholder="Search for an Airline" />
-          <ul id="selected-airlines">
-          </ul>
-          <div class="list-container">
-            <ul id="airline-list"></ul>
-          </div>
-        </div>
+        <div id="list-wrapper" class="list-wrapper" style="display:none;">     
+          <input type="text" id="search" placeholder="Search for an Airline" style="display:none"/>
+          <ul id="selected-airlines">                                          
+          </ul>                                                                
+          <div class="list-container">                                         
+            <ul id="airline-list"></ul>                                        
+          </div>                                                               
+        </div>                                                                 
         <div style="clear:both;"></div>
       </div>
     </div>
-  </div>
-  
-  
-  <div class="footer">
-    Authors: <a href='http://twitter.com/gerbille/'>Luz Caballero</a> &amp; <a href="http://philogb.github.com/">Nicolas Garcia
-      Belmonte</a>.
   </div>
   
   <div class="tooltip hide" id="tooltip" style="width:auto;"></div>
