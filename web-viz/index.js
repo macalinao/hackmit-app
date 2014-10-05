@@ -114,7 +114,7 @@ function loadData() {
   Log.write('Loading data...');
   //Request cities data
   new IO.XHR({
-    url: 'data/cooperation-nodes.json',
+    url: 'data/nodes.json',
     onSuccess: function(json) {
       data.cities = JSON.parse(json);
       citiesWorker.postMessage(data.cities);
@@ -142,7 +142,7 @@ function loadData() {
           cos = Math.cos,
           phi, theta, sinTheta, cosTheta, sinPhi, cosPhi;
       //assuming the data will be available after the document is ready...
-      for (var i = 0, l = airlines.length -1; i < l; i++) {
+      for (var i = 0, l = airlines.length; i < l; i++) {
         var airline = airlines[i],
             airlineId = airline[0],
             airlineName = airline[1];
