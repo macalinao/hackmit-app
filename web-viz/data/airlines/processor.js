@@ -8,7 +8,7 @@ var _ = require('lodash');
 var fs = require('fs');
 
 var cities = {
-  'san francisco': '213'
+  'sanfrancisco': '213'
 };
 
 function processCity(city, cb) {
@@ -67,11 +67,15 @@ function processCityFile(city, file, cb) {
     });
     console.log('== Third degree: ' + degree3.length + ' connections');
 
-
+    fs.writeFile(city + '-' + file + '-1.json', JSON.stringify(degree1), function() {
+      fs.writeFile(city + '-' + file + '-2.json', JSON.stringify(degree2), function() {
+        fs.writeFile(city + '-' + file + '-3.json', JSON.stringify(degree3), cb);
+      });
+    });
   });
 }
 
-async.each(['san francisco'], function(city, cb) {
+async.each(['sanfrancisco'], function(city, cb) {
   processCity(city, cb);
 }, function(cb) {
   console.log('Done');
