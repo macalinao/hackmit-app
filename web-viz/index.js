@@ -78,7 +78,7 @@ models.earth = new O3D.Sphere({
   textures: ['img/lala.jpg'],
   program: 'earth'
 });
-models.earth.rotation.set(Math.PI, 0, 0);
+models.earth.rotation.set(Math.PI, 0, Math.PI);
 models.earth.update();
 
 //Create cities layer model and create PhiloGL app.
