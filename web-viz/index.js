@@ -361,20 +361,20 @@ function createApp() {
       lights: {
         enable: true,
         ambient: {
-          r: 0.4,
-          g: 0.4,
-          b: 0.4
+          r: 0.8,
+          g: 0.8,
+          b: 0.8
         },
         points: {
           diffuse: {
-            r: 0.8,
-            g: 0.8,
-            b: 0.8
+            r: 1.5,
+            g: 1.5,
+            b: 1.5
           },
           specular: {
-            r: 0.9,
-            g: 0.9,
-            b: 0.9
+            r: 2,
+            g: 2,
+            b: 2 
           },
           position: {
             x: 2,
