@@ -225,25 +225,23 @@ jQuery(function() {
     if(event.keyCode==39 && rightKeyCount<=2){
       rightKeyCount++;
       jQuery("#checkbox-sanfrancisco_conflict_"+(rightKeyCount)).click();
-      console.log(rightKeyCount); 
+      jQuery("#checkbox-sanfrancisco_conflict_"+(rightKeyCount)).style("display", "none")
     }
     else if(event.keyCode==37 && rightKeyCount>=1){
       jQuery("#checkbox-sanfrancisco_conflict_"+(rightKeyCount)).click();
       rightKeyCount--;
-      console.log(rightKeyCount);
+      jQuery("#checkbox-sanfrancisco_conflict_"+(rightKeyCount)).style("display", "none")
     }
     else if(event.keyCode==38 && upKeyCount<=2){
       upKeyCount++;
       jQuery("#checkbox-sanfrancisco_cooperation_"+(upKeyCount)).click();
-      console.log(upKeyCount);
-      
+      jQuery("#checkbox-sanfrancisco_cooperation_"+(upKeyCount)).style("display", "none")
       
     }
     else if(event.keyCode==40 && upKeyCount>=1){
       jQuery("#checkbox-sanfrancisco_cooperation_"+(upKeyCount)).click();
       upKeyCount--;
-      console.log(upKeyCount);
-      
+      jQuery("#checkbox-sanfrancisco_cooperation_"+(upKeyCount)).style("display", "none")
       
     }
 
@@ -267,13 +265,13 @@ function centerAirline(airlineId) {
 
   fx.start({
     onCompute: function(delta) {
-      rotateXY(phiDiff * delta, thetaDiff * delta);
+      //rotateXY(phiDiff * delta, thetaDiff * delta);
       geom.phi = phiPrev + phiDiff * delta;
       geom.theta = thetaPrev + thetaDiff * delta;
     },
 
     onComplete: function() {
-      centerAirline.app.scene.resetPicking();
+      //centerAirline.app.scene.resetPicking();
     }
   });
 }
@@ -493,7 +491,7 @@ function createApp() {
       airlineMgr.app = app;
 
       gl.clearColor(0, 0, 0, 0);
-      gl.clear(clearOpt);
+      gl.clear(gl.COLOR_BUFFER_BIT);
       gl.enable(gl.DEPTH_TEST);
       gl.depthFunc(gl.LEQUAL);
 
