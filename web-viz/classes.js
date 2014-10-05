@@ -197,11 +197,11 @@ var AirlineManager = function(data, models) {
     cooperation: '0, 255, 0',
     conflict: '255, 0, 0',
     sanfrancisco_cooperation_1: '0, 255, 0',
-    sanfrancisco_cooperation_2: '0, 255, 0',
-    sanfrancisco_cooperation_3: '0, 255, 0',
+    sanfrancisco_cooperation_2: '0, 255, 78',
+    sanfrancisco_cooperation_3: '0, 255, 134',
     sanfrancisco_conflict_1: '255, 0, 0',
-    sanfrancisco_conflict_2: '255, 0, 0',
-    sanfrancisco_conflict_3: '255, 0, 0'
+    sanfrancisco_conflict_2: '255, 47, 0',
+    sanfrancisco_conflict_3: '255, 132, 0'
   };
 
   return {
