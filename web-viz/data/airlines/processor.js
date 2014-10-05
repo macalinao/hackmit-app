@@ -32,6 +32,8 @@ function processCityFile(city, file, cb) {
     var degree1 = _.filter(data, function(tuple) {
       return tuple[0] === cityId || tuple[1] === cityId; // Ensure 1st degree city
     });
+
+    // First degree cities
     var citiesDegree1 = _.reduce(degree1, function(res, tuple) {
       res.push(tuple[0] === cityId ? tuple[1] : tuple[0]); // Get 1st degree connected cities
       return res;
@@ -45,11 +47,10 @@ function processCityFile(city, file, cb) {
     });
 
     // Second degree cities
-    var citiesDegree2 = _.reduce(degree1, function(res, tuple) {
+    var citiesDegree2 = _.reduce(degree2, function(res, tuple) {
       if (tuple[0] === cityId || tuple[1] === cityId) {
         return res;
       }
-
       if (citiesDegree1.indexOf(tuple[0]) !== -1) {
         res.push(tuple[1]);
       } else {
@@ -57,9 +58,16 @@ function processCityFile(city, file, cb) {
       }
       return res;
     }, []);
+    console.log('== Second degree: ' + degree2.length + ' connections' + ' (' + citiesDegree2.length + ' cities)');
+
+    // Third degree connections
+    var degree3 = _.filter(data, function(tuple) {
+      return (citiesDegree2.indexOf(tuple[0]) !== -1 || citiesDegree2.indexOf(tuple[1]) !== -1) // Ensure 3rd degree city
+        && degree2.indexOf(tuple) === -1 && degree1.indexOf(tuple) === -1; // Ensure not 1st/2nd degree
+    });
+    console.log('== Third degree: ' + degree3.length + ' connections');
 
 
-    console.log('== Second degree: ' + degree2.length + ' connections');
   });
 }
 
