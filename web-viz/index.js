@@ -193,7 +193,10 @@ function loadData() {
             url: 'data/airlines/' + airlineId.replace(' ', '_') + '.json',
             onSuccess: function(json) {
               var process = JSON.parse(json);
-              
+              process = _.filter(process, function(dat) {
+                return dat[2] > 0.02;
+              });
+
               data.airlinesRoutes[airlineId] = process;
               callback();
               Log.write('Done.', true);
