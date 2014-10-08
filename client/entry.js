@@ -15,6 +15,12 @@ $(function() {
   $curr.addClass('selected');
 
   $(document).keydown(function(e) {
+    if (e.keyCode === 70) {
+      $('body').toggleClass('flip');
+    }
+  });
+
+  $(document).keydown(function(e) {
 
     if (state === 0) {
 

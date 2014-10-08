@@ -1,3 +1,11 @@
+// flip with f key
+jQuery(document).keydown(function(e) {
+  if (e.keyCode === 70) {
+    jQuery('#infoText').toggleClass('flip');
+    jQuery('#logo').toggleClass('flip');
+  }
+});
+
 //Unpack modules
 PhiloGL.unpack();
 Scene.PICKING_RES = 1;
